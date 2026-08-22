@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Setting {
+  id             String @id @default("default")
+  brandName      String
+  companyName    String
+  taxId          String
+  bank           String
+  swift          String
+  iban           String
+  director       String
+  vatRate        Float  @default(0.18)
+  invoicePrefix  String
+  lastNumber     Int
+}
+
+model Customer {
+  id        String    @id @default(cuid())
+  name      String
+  taxId     String    @default("")
+  address   String    @default("")
+  phone     String    @default("")
+  contact   String    @default("")
+  createdAt DateTime  @default(now())
+  invoices  Invoice[]
+}
+
+model Product {
+  id         String  @id @default(cuid())
+  name       String
+  priceTetri Int
+  active     Boolean @default(true)
+  sortOrder  Int     @default(0)
+}
+
+model Invoice {
+  id             String        @id @default(cuid())
+  number         String        @unique
+  issuedAt       DateTime      @default(now())
+  dueAt          DateTime?
+  status         String        @default("issued")
+  customerId     String?
+  customer       Customer?     @relation(fields: [customerId], references: [id])
+  customerName   String        @default("")
+  customerTaxId  String        @default("")
+  customerAddr   String        @default("")
+  customerPhone  String        @default("")
+  customerContact String       @default("")
+  subtotalTetri  Int           @default(0)
+  vatTetri       Int           @default(0)
+  totalTetri     Int           @default(0)
+  createdAt      DateTime      @default(now())
+  lines          InvoiceLine[]
+}
+
+model InvoiceLine {
+  id         String  @id @default(cuid())
+  invoiceId  String
+  invoice    Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  name       String
+  qty        Float
+  unitTetri  Int
+  totalTetri Int
+  sortOrder  Int
+}
