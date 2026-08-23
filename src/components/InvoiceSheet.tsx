@@ -44,6 +44,7 @@ export function InvoiceSheet({
           --inv-teal: #1b6d78;
           --inv-teal-soft: #e8f4f5;
           --inv-deep: #0c2a30;
+          --inv-gold: #c4a574;
           background: #fff;
           color: var(--inv-ink);
           max-width: 860px;
@@ -53,35 +54,44 @@ export function InvoiceSheet({
           border-radius: 16px;
           overflow: hidden;
           box-shadow: 0 18px 50px rgba(12, 42, 48, 0.08);
+          container-type: inline-size;
+          container-name: invoice;
         }
         .inv-accent {
-          height: 8px;
-          background: linear-gradient(90deg, #0c2a30 0%, #1b6d78 55%, #c4a574 100%);
+          height: 7px;
+          background: linear-gradient(90deg, #0c2a30 0%, #1b6d78 55%, var(--inv-gold) 100%);
         }
         .inv-pad { padding: 28px 32px 32px; }
         .inv-head {
           display: flex;
           justify-content: space-between;
           align-items: flex-start;
-          gap: 28px;
+          gap: 24px;
           padding-bottom: 22px;
           border-bottom: 1px solid var(--inv-line);
         }
         .inv-logo img { display: block; height: 92px; width: auto; }
-        .inv-title { text-align: right; }
+        .inv-title { text-align: right; min-width: 0; }
         .inv-kicker {
           margin: 0 0 4px;
           font-size: 11px;
-          letter-spacing: 0.28em;
+          letter-spacing: 0.22em;
           text-transform: uppercase;
           color: var(--inv-teal);
           font-weight: 700;
+        }
+        .inv-sec {
+          margin: 0 0 8px;
+          font-size: 12px;
+          font-weight: 700;
+          color: var(--inv-teal);
         }
         .inv-title h1 {
           margin: 0;
           font-size: 34px;
           letter-spacing: -0.03em;
           color: var(--inv-deep);
+          line-height: 1.1;
         }
         .inv-no {
           margin-top: 10px;
@@ -112,68 +122,79 @@ export function InvoiceSheet({
           border: 1px solid var(--inv-line);
           border-radius: 12px;
           padding: 16px 18px;
+          min-width: 0;
         }
         .inv-card h3 {
           margin: 0 0 12px;
-          font-size: 11px;
-          letter-spacing: 0.16em;
-          text-transform: uppercase;
+          font-size: 12px;
+          font-weight: 700;
           color: var(--inv-teal);
           border: 0;
         }
-        .inv-field { display: grid; grid-template-columns: 92px 1fr; gap: 8px; margin: 0 0 7px; font-size: 13px; }
+        .inv-field { display: grid; grid-template-columns: 88px 1fr; gap: 8px; margin: 0 0 7px; font-size: 13px; }
         .inv-k { color: var(--inv-muted); }
         .inv-v { color: var(--inv-ink); font-weight: 600; word-break: break-word; }
+        .inv-table-wrap { overflow-x: auto; }
         .inv table {
           width: 100%;
-          border-collapse: collapse;
+          border-collapse: separate;
+          border-spacing: 0;
           background: transparent;
         }
         .inv th, .inv td {
           font-size: 13px;
-          padding: 10px 12px;
+          padding: 11px 12px;
           border-bottom: 1px solid var(--inv-line);
         }
         .inv thead th {
           background: var(--inv-deep);
           color: #eef7f7;
           font-size: 11px;
-          letter-spacing: 0.06em;
-          text-transform: uppercase;
           font-weight: 600;
+          border-bottom: 0;
         }
-        .inv thead th:first-child { border-radius: 8px 0 0 8px; }
-        .inv thead th:last-child { border-radius: 0 8px 8px 0; }
+        .inv thead th:first-child { border-radius: 10px 0 0 10px; }
+        .inv thead th:last-child { border-radius: 0 10px 10px 0; }
+        .inv tbody tr:nth-child(even) td { background: #f7fbfb; }
         .inv tbody tr:last-child td { border-bottom: 0; }
         .inv .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
         .inv .idx { width: 42px; color: var(--inv-muted); }
         .inv .qty { width: 72px; }
-        .inv .money { width: 110px; }
+        .inv .money { width: 108px; }
         .inv-bottom {
           display: grid;
-          grid-template-columns: 1.2fr 0.8fr;
-          gap: 20px;
+          grid-template-columns: minmax(0, 1.25fr) minmax(220px, 0.75fr);
+          gap: 16px;
           margin-top: 22px;
-          align-items: start;
+          align-items: stretch;
         }
         .inv-words {
           background: var(--inv-teal-soft);
           border-radius: 12px;
           padding: 16px 18px;
-          font-size: 13px;
-          line-height: 1.45;
+          font-size: 14px;
+          line-height: 1.5;
+          font-weight: 600;
         }
-        .inv-words span { display: block; color: var(--inv-muted); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+        .inv-words span {
+          display: block;
+          color: var(--inv-muted);
+          font-size: 12px;
+          font-weight: 700;
+          margin-bottom: 6px;
+        }
         .inv-tot {
           background: #fff;
           border: 1px solid var(--inv-line);
           border-radius: 12px;
           overflow: hidden;
+          min-width: 0;
         }
         .inv-tot-row {
           display: flex;
           justify-content: space-between;
-          gap: 16px;
+          align-items: baseline;
+          gap: 12px;
           padding: 10px 16px;
           font-size: 13px;
         }
@@ -181,10 +202,11 @@ export function InvoiceSheet({
         .inv-tot-row.pay {
           background: var(--inv-deep);
           color: #fff;
-          font-size: 16px;
+          font-size: 15px;
           font-weight: 700;
           padding: 14px 16px;
         }
+        .inv-tot-row .amt { white-space: nowrap; font-variant-numeric: tabular-nums; }
         .inv-pay {
           margin-top: 22px;
           border-top: 1px dashed var(--inv-line);
@@ -192,25 +214,23 @@ export function InvoiceSheet({
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 18px;
+          align-items: end;
         }
         .inv-iban {
           font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
           font-size: 14px;
-          letter-spacing: 0.04em;
+          letter-spacing: 0.03em;
           background: #f3f7f7;
-          padding: 8px 10px;
+          padding: 10px 12px;
           border-radius: 8px;
-          margin-top: 6px;
+          border: 1px solid var(--inv-line);
+          word-break: break-all;
         }
-        .inv-sign {
-          display: flex;
-          justify-content: space-between;
-          gap: 24px;
-          margin-top: 8px;
-        }
-        .inv-sign-box { min-width: 220px; }
+        .inv-bank { margin-top: 8px; font-size: 13px; color: var(--inv-muted); }
+        .inv-sign { display: flex; justify-content: flex-end; }
+        .inv-sign-box { min-width: 200px; max-width: 280px; width: 100%; }
         .inv-sign-line {
-          margin-top: 36px;
+          margin-top: 28px;
           border-bottom: 1px solid var(--inv-ink);
           height: 1px;
         }
@@ -221,6 +241,13 @@ export function InvoiceSheet({
           color: var(--inv-muted);
           text-align: center;
         }
+        @container invoice (max-width: 640px) {
+          .inv-head { flex-direction: column; gap: 16px; }
+          .inv-title { text-align: left; }
+          .inv-parties, .inv-bottom, .inv-pay { grid-template-columns: 1fr; }
+          .inv-sign { justify-content: flex-start; }
+          .inv-pad { padding: 20px; }
+        }
         @media print {
           .inv {
             border: 0;
@@ -228,16 +255,10 @@ export function InvoiceSheet({
             box-shadow: none;
             max-width: none;
           }
-          .inv-accent { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-          .inv thead th, .inv-tot-row.pay, .inv-words, .inv-card {
+          .inv-accent, .inv thead th, .inv-tot-row.pay, .inv-words, .inv-card {
             print-color-adjust: exact;
             -webkit-print-color-adjust: exact;
           }
-        }
-        @media (max-width: 720px) {
-          .inv-head, .inv-parties, .inv-bottom, .inv-pay, .inv-sign { grid-template-columns: 1fr; display: grid; }
-          .inv-title, .inv-head { text-align: left; }
-          .inv-pad { padding: 20px; }
         }
       `}</style>
       <div className="inv-accent" />
@@ -281,28 +302,30 @@ export function InvoiceSheet({
           </section>
         </div>
 
-        <table>
-          <thead>
-            <tr>
-              <th className="idx">№</th>
-              <th>დასახელება</th>
-              <th className="num qty">რაოდ.</th>
-              <th className="num money">ერთ. ფასი</th>
-              <th className="num money">ჯამი</th>
-            </tr>
-          </thead>
-          <tbody>
-            {invoice.lines.map((l, i) => (
-              <tr key={l.id}>
-                <td className="idx">{i + 1}</td>
-                <td>{l.name}</td>
-                <td className="num">{formatQty(l.qty)}</td>
-                <td className="num">{formatGel(l.unitTetri)}</td>
-                <td className="num">{formatGel(l.totalTetri)}</td>
+        <div className="inv-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th className="idx">№</th>
+                <th>დასახელება</th>
+                <th className="num qty">რაოდ.</th>
+                <th className="num money">ერთ. ფასი</th>
+                <th className="num money">ჯამი</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {invoice.lines.map((l, i) => (
+                <tr key={l.id}>
+                  <td className="idx">{i + 1}</td>
+                  <td>{l.name}</td>
+                  <td className="num">{formatQty(l.qty)}</td>
+                  <td className="num">{formatGel(l.unitTetri)}</td>
+                  <td className="num">{formatGel(l.totalTetri)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
         <div className="inv-bottom">
           <div className="inv-words">
@@ -312,26 +335,24 @@ export function InvoiceSheet({
           <div className="inv-tot">
             <div className="inv-tot-row">
               <span>ჯამი</span>
-              <strong>{formatGel(invoice.subtotalTetri)} ₾</strong>
+              <strong className="amt">{formatGel(invoice.subtotalTetri)} ₾</strong>
             </div>
             <div className="inv-tot-row">
               <span>მ. შ. დღგ ({vatPct}%)</span>
-              <strong>{formatGel(invoice.vatTetri)} ₾</strong>
+              <strong className="amt">{formatGel(invoice.vatTetri)} ₾</strong>
             </div>
             <div className="inv-tot-row pay">
               <span>გადასახდელი</span>
-              <span>{formatGel(invoice.totalTetri)} ₾</span>
+              <span className="amt">{formatGel(invoice.totalTetri)} ₾</span>
             </div>
           </div>
         </div>
 
         <div className="inv-pay">
           <div>
-            <h3 className="inv-kicker" style={{ textAlign: "left", marginBottom: 8 }}>
-              ანგარიში
-            </h3>
+            <h3 className="inv-sec">ანგარიში</h3>
             <div className="inv-iban">{settings.iban}</div>
-            <div style={{ marginTop: 8, fontSize: 13, color: "var(--inv-muted)" }}>
+            <div className="inv-bank">
               {settings.bank}
               {settings.swift ? ` · ${settings.swift}` : ""}
             </div>
