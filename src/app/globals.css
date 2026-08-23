@@ -180,7 +180,7 @@ th { font-size: 13px; color: var(--muted); font-weight: 600; }
     padding: 14px 14px max(20px, env(safe-area-inset-bottom));
   }
   h1 { font-size: 22px; }
-  .cards { grid-template-columns: 1fr; }
+  .cards { grid-template-columns: 1fr 1fr; }
   .form-grid { grid-template-columns: 1fr; max-width: none; }
   .stack { max-width: none; }
   .toolbar { gap: 8px; }
