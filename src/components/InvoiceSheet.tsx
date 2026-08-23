@@ -227,14 +227,28 @@ export function InvoiceSheet({
           word-break: break-all;
         }
         .inv-bank { margin-top: 8px; font-size: 13px; color: var(--inv-muted); }
-        .inv-sign { display: flex; justify-content: flex-end; }
-        .inv-sign-box { min-width: 200px; max-width: 280px; width: 100%; }
-        .inv-sign-line {
-          margin-top: 28px;
-          border-bottom: 1px solid var(--inv-ink);
-          height: 1px;
+        .inv-sign {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          gap: 2px;
         }
-        .inv-sign-label { margin-top: 8px; font-size: 12px; color: var(--inv-muted); }
+        .inv-sign-marks {
+          display: flex;
+          align-items: flex-end;
+          justify-content: flex-end;
+          gap: 10px;
+        }
+        .inv-sign-marks img {
+          display: block;
+          width: auto;
+          object-fit: contain;
+          print-color-adjust: exact;
+          -webkit-print-color-adjust: exact;
+        }
+        .inv-sign-img { height: 76px; }
+        .inv-stamp-img { height: 82px; }
+        .inv-sign-label { margin-top: 4px; font-size: 12px; color: var(--inv-muted); text-align: right; }
         .inv-foot {
           margin-top: 28px;
           font-size: 11px;
@@ -245,7 +259,8 @@ export function InvoiceSheet({
           .inv-head { flex-direction: column; gap: 16px; }
           .inv-title { text-align: left; }
           .inv-parties, .inv-bottom, .inv-pay { grid-template-columns: 1fr; }
-          .inv-sign { justify-content: flex-start; }
+          .inv-sign { align-items: flex-start; }
+          .inv-sign-marks, .inv-sign-label { justify-content: flex-start; text-align: left; }
           .inv-pad { padding: 20px; }
         }
         @media print {
@@ -255,7 +270,7 @@ export function InvoiceSheet({
             box-shadow: none;
             max-width: none;
           }
-          .inv-accent, .inv thead th, .inv-tot-row.pay, .inv-words, .inv-card {
+          .inv-accent, .inv thead th, .inv-tot-row.pay, .inv-words, .inv-card, .inv-sign-marks img {
             print-color-adjust: exact;
             -webkit-print-color-adjust: exact;
           }
@@ -358,10 +373,19 @@ export function InvoiceSheet({
             </div>
           </div>
           <div className="inv-sign">
-            <div className="inv-sign-box">
-              <div className="inv-sign-line" />
-              <div className="inv-sign-label">დირექტორი · {settings.director}</div>
+            <div className="inv-sign-marks">
+              <img
+                className="inv-sign-img"
+                src="/director-signature.png"
+                alt=""
+              />
+              <img
+                className="inv-stamp-img"
+                src="/tiflisi-stamp.png"
+                alt='ბეჭედი რესტორანი "ტიფლისი"'
+              />
             </div>
+            <div className="inv-sign-label">დირექტორი · {settings.director}</div>
           </div>
         </div>
         <div className="inv-foot">{settings.brandName}</div>
