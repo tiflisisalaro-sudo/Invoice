@@ -17,6 +17,7 @@ type Product = {
 
 export function MenuTable({ products }: { products: Product[] }) {
   return (
+    <div className="table-wrap">
     <table>
       <thead>
         <tr>
@@ -91,5 +92,6 @@ export function MenuTable({ products }: { products: Product[] }) {
         ))}
       </tbody>
     </table>
+    </div>
   );
 }

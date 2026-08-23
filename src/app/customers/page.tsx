@@ -31,6 +31,7 @@ export default async function CustomersPage() {
           <button type="submit">დამატება</button>
         </div>
       </form>
+      <div className="table-wrap">
       <table>
         <thead>
           <tr>
@@ -63,6 +64,7 @@ export default async function CustomersPage() {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }

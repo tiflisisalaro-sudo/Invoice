@@ -49,6 +49,7 @@ export default async function InvoicesPage({
           ახალი ინვოისი
         </Link>
       </form>
+      <div className="table-wrap">
       <table>
         <thead>
           <tr>
@@ -77,6 +78,7 @@ export default async function InvoicesPage({
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }

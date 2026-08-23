@@ -56,6 +56,7 @@ export default async function HomePage() {
         <Link className="btn secondary" href="/invoices">ყველა ინვოისი</Link>
       </div>
       <h2>ბოლო ინვოისები</h2>
+      <div className="table-wrap">
       <table>
         <thead>
           <tr>
@@ -80,6 +81,7 @@ export default async function HomePage() {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }

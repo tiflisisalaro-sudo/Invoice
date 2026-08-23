@@ -184,16 +184,14 @@ export function InvoiceEditor({
           placeholder="ძებნა მენიუში…"
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          style={{ minWidth: 240 }}
         />
       </div>
-      <div style={{ maxHeight: 160, overflow: "auto", marginBottom: 16, border: "1px solid var(--line)", borderRadius: 8 }}>
+      <div className="dish-pick">
         {filtered.slice(0, 40).map((p) => (
           <button
             key={p.id}
             type="button"
             className="ghost"
-            style={{ margin: 4 }}
             onClick={() => addLine(p)}
           >
             {p.name} — {formatGel(p.priceTetri)}
@@ -201,7 +199,7 @@ export function InvoiceEditor({
         ))}
       </div>
 
-      <table>
+      <table className="lines-table">
         <thead>
           <tr>
             <th>№</th>
@@ -261,14 +259,14 @@ export function InvoiceEditor({
         </button>
       </div>
 
-      <div className="card" style={{ maxWidth: 360, marginLeft: "auto" }}>
+      <div className="card editor-totals" style={{ maxWidth: 360, marginLeft: "auto" }}>
         <div>ჯამი (GEL): <strong>{formatGel(totals.subtotal)}</strong></div>
         <div>მ. შ. დღგ ({Math.round(vatRate * 100)}%): <strong>{formatGel(totals.vat)}</strong></div>
         <div>გადასახდელი: <strong>{formatGel(totals.subtotal)}</strong></div>
         <p className="muted">{amountInWordsKa(totals.subtotal)}</p>
       </div>
 
-      <div className="toolbar">
+      <div className="toolbar editor-actions">
         <button type="button" disabled={busy} onClick={submit}>
           {busy ? "ინახება…" : editing ? "ცვლილებების შენახვა" : "ინვოისის გამოცემა"}
         </button>
