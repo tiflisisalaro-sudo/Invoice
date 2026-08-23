@@ -4,6 +4,8 @@ import { headers } from "next/headers";
 import { logout } from "@/app/login-actions";
 import "./globals.css";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "ტიფლისი — ინვოისი",
   description: "რესტორანი ტიფლისი, ონლაინ ინვოისები",
