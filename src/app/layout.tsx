@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { headers } from "next/headers";
-import { logout } from "@/app/login-actions";
 import "./globals.css";
 
 export const dynamic = "force-dynamic";
@@ -11,16 +9,7 @@ export const metadata: Metadata = {
   description: "რესტორანი ტიფლისი, ონლაინ ინვოისები",
 };
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const path = (await headers()).get("x-pathname") || "";
-  if (path.startsWith("/login")) {
-    return (
-      <html lang="ka">
-        <body>{children}</body>
-      </html>
-    );
-  }
-
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ka">
       <body>
@@ -36,9 +25,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <Link href="/customers">მყიდველები</Link>
             <Link href="/menu">მენიუ</Link>
             <Link href="/settings">პარამეტრები</Link>
-            <form action={logout} className="logout">
-              <button type="submit" className="ghost">გასვლა</button>
-            </form>
           </aside>
           <main className="content">{children}</main>
         </div>
