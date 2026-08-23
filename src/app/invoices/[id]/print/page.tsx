@@ -19,7 +19,7 @@ export default async function PrintPage({
   if (!invoice) notFound();
   return (
     <div>
-      <p className="no-print muted">
+      <p className="no-print muted" style={{ maxWidth: 860, margin: "0 auto 16px" }}>
         ბეჭდვისთვის გამოიყენეთ Ctrl+P — აირჩიეთ Save as PDF
       </p>
       <InvoiceSheet invoice={invoice} settings={settings} />
