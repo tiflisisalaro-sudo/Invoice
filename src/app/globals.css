@@ -144,11 +144,69 @@ th { font-size: 13px; color: var(--muted); font-weight: 600; }
 .login-logo { width: 220px; height: auto; margin: 0 auto 12px; display: block; }
 .err { color: var(--danger); }
 .ok-msg { color: var(--ok); }
-.settings-sec { margin-top: 32px; max-width: 520px; }
-.settings-sec .stack { max-width: none; }
+
+.settings-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+}
+.settings-meta {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: 13px;
+  color: var(--muted);
+  min-width: 180px;
+}
+.settings-meta strong {
+  display: block;
+  color: var(--ink);
+  font-size: 18px;
+  margin-top: 2px;
+}
+.settings-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 16px;
+  align-items: start;
+}
+.settings-main,
+.settings-side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+.settings-main .card,
+.settings-side .card { padding: 18px 20px; }
+.settings-main h2,
+.settings-side h2 {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+.settings-main .form-grid { max-width: none; }
+.settings-main input,
+.settings-side input { width: 100%; }
+.settings-span-2 { grid-column: 1 / -1; }
+.settings-actions {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+}
+.settings-side .muted { margin: 0 0 14px; font-size: 13px; line-height: 1.45; }
+.settings-side .stack { max-width: none; }
+.settings-side button { width: 100%; }
 
 @media (max-width: 980px) {
   .cards { grid-template-columns: 1fr 1fr; }
+  .settings-layout { grid-template-columns: 1fr; }
 }
 @media (max-width: 800px) {
   .shell { flex-direction: column; }
@@ -197,7 +255,12 @@ th { font-size: 13px; color: var(--muted); font-weight: 600; }
   .cards { grid-template-columns: 1fr 1fr; }
   .form-grid { grid-template-columns: 1fr; max-width: none; }
   .stack { max-width: none; }
-  .settings-sec { max-width: none; }
+  .settings-layout { grid-template-columns: 1fr; }
+  .settings-head { align-items: stretch; }
+  .settings-meta { min-width: 0; }
+  .settings-span-2 { grid-column: auto; }
+  .settings-actions { justify-content: stretch; }
+  .settings-actions button { width: 100%; }
   .toolbar { gap: 8px; }
   .toolbar input, .toolbar select, .toolbar button, .toolbar .btn {
     flex: 1 1 140px;
