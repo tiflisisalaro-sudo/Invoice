@@ -124,14 +124,28 @@ th { font-size: 13px; color: var(--muted); font-weight: 600; }
 
 .login-wrap {
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #0d2c32;
+  padding: 24px 16px;
 }
-.login-card { width: 360px; text-align: center; }
+.login-card {
+  width: 360px;
+  max-width: 100%;
+  text-align: center;
+  background: #fff;
+  padding: 28px 24px;
+  border-radius: 12px;
+}
+.login-card h1 { font-size: 22px; }
+.login-card .stack { max-width: none; text-align: left; margin-top: 16px; }
 .login-logo { width: 220px; height: auto; margin: 0 auto 12px; display: block; }
 .err { color: var(--danger); }
+.ok-msg { color: var(--ok); }
+.settings-sec { margin-top: 32px; max-width: 520px; }
+.settings-sec .stack { max-width: none; }
 
 @media (max-width: 980px) {
   .cards { grid-template-columns: 1fr 1fr; }
@@ -183,6 +197,7 @@ th { font-size: 13px; color: var(--muted); font-weight: 600; }
   .cards { grid-template-columns: 1fr 1fr; }
   .form-grid { grid-template-columns: 1fr; max-width: none; }
   .stack { max-width: none; }
+  .settings-sec { max-width: none; }
   .toolbar { gap: 8px; }
   .toolbar input, .toolbar select, .toolbar button, .toolbar .btn {
     flex: 1 1 140px;

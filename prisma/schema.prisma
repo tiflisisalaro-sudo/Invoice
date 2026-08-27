@@ -21,6 +21,7 @@ model Setting {
   vatRate        Float  @default(0.18)
   invoicePrefix  String
   lastNumber     Int
+  passwordHash   String @default("")
 }
 
 model Customer {

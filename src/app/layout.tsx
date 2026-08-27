@@ -1,4 +1,6 @@
 import type { Metadata, Viewport } from "next";
+import { headers } from "next/headers";
+import { logout } from "@/app/login-actions";
 import { NavLinks } from "@/components/NavLinks";
 import "./globals.css";
 
@@ -23,7 +25,18 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const pathname = (await headers()).get("x-pathname") || "";
+  const isLogin = pathname === "/login" || pathname.startsWith("/login/");
+
+  if (isLogin) {
+    return (
+      <html lang="ka">
+        <body>{children}</body>
+      </html>
+    );
+  }
+
   return (
     <html lang="ka">
       <body>
@@ -34,6 +47,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <span>ინვოისები</span>
             </div>
             <NavLinks />
+            <form action={logout} className="logout">
+              <button type="submit" className="ghost">
+                გასვლა
+              </button>
+            </form>
           </aside>
           <main className="content">{children}</main>
         </div>

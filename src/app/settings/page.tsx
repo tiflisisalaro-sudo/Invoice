@@ -1,8 +1,27 @@
 import { saveSettings } from "@/app/actions";
+import { changePassword } from "@/app/login-actions";
 import { getSettings } from "@/lib/invoices";
+import { getPasswordState } from "@/lib/password";
 
-export default async function SettingsPage() {
-  const s = await getSettings();
+const pwMessages: Record<string, { text: string; ok?: boolean }> = {
+  ok: { text: "პაროლი შენახულია", ok: true },
+  current: { text: "მიმდინარე პაროლი არასწორია" },
+  short: { text: "ახალი პაროლი უნდა იყოს მინიმუმ 4 სიმბოლო" },
+  mismatch: { text: "ახალი პაროლები არ ემთხვევა" },
+};
+
+export default async function SettingsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ pw?: string }>;
+}) {
+  const [{ pw }, s, pwState] = await Promise.all([
+    searchParams,
+    getSettings(),
+    getPasswordState(),
+  ]);
+  const notice = pw ? pwMessages[pw] : undefined;
+
   return (
     <div>
       <h1>პარამეტრები</h1>
@@ -48,6 +67,56 @@ export default async function SettingsPage() {
         </label>
         <button type="submit">შენახვა</button>
       </form>
+
+      <div className="card settings-sec">
+        <h2>საიტის პაროლი</h2>
+        <p className="muted">
+          {pwState.stored
+            ? "აქ შეგიძლიათ შეცვალოთ შესვლის პაროლი."
+            : pwState.envSet
+              ? "ახლა პაროლი გარემოს ცვლადიდანაა. აქ დააყენეთ ახალი პაროლი, რომელიც ბაზაში შეინახება."
+              : "დააყენეთ პაროლი, რომ საიტზე მხოლოდ თქვენ შეხვიდეთ."}
+        </p>
+        {notice ? (
+          <p className={notice.ok ? "ok-msg" : "err"}>{notice.text}</p>
+        ) : null}
+        <form action={changePassword} className="stack">
+          {pwState.configured ? (
+            <label>
+              მიმდინარე პაროლი
+              <input
+                name="current"
+                type="password"
+                autoComplete="current-password"
+                required
+              />
+            </label>
+          ) : null}
+          <label>
+            ახალი პაროლი
+            <input
+              name="password"
+              type="password"
+              autoComplete="new-password"
+              required
+              minLength={4}
+            />
+          </label>
+          <label>
+            გაიმეორეთ ახალი პაროლი
+            <input
+              name="confirm"
+              type="password"
+              autoComplete="new-password"
+              required
+              minLength={4}
+            />
+          </label>
+          <button type="submit">
+            {pwState.stored ? "პაროლის შეცვლა" : "პაროლის დაყენება"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
